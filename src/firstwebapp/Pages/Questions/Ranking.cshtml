@@ -1,0 +1,40 @@
+@page
+@model firstwebapp.Pages.Questions.RankingModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Die dümmsten Fragen</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].Submitter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].dumbQuestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].Vote)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Question) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Submitter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dumbQuestion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vote)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,43 @@
+@page
+@model firstwebapp.Pages.Questions.Vote
+
+@{
+    ViewData["Title"] = "Voting";
+}
+
+<h1>Was ist die dümmste Frage?</h1>
+
+<table class="table">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Frage.ID" />
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayFor(m=> m.Frage.Submitter)
+            </th>
+            <th>
+               @Html.DisplayFor(m=> m.Frage.dumbQuestion)
+            </th>
+            <th>
+              @Html.DisplayFor(m=> m.Frage.Vote)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(m=> m.Frage.Submitter)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.Frage.dumbQuestion)
+            </td>
+            <td>
+                 @Html.DisplayFor(m=> m.Frage.Vote)
+            </td>
+             <td>
+             <a asp-page="Vote"><input type="submit" value="+1" class="btn btn-primary" /></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
