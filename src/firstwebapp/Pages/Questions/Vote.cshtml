@@ -5,39 +5,37 @@
     ViewData["Title"] = "Voting";
 }
 
-<h1>Was ist die dümmste Frage?</h1>
+<h1>Was ist die dümmste Question?</h1>
 
-<table class="table">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Frage.ID" />
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayFor(m=> m.Frage.Submitter)
-            </th>
-            <th>
-               @Html.DisplayFor(m=> m.Frage.dumbQuestion)
-            </th>
-            <th>
-              @Html.DisplayFor(m=> m.Frage.Vote)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(m=> m.Frage.Submitter)
-            </td>
-            <td>
-                @Html.DisplayFor(m => m.Frage.dumbQuestion)
-            </td>
-            <td>
-                 @Html.DisplayFor(m=> m.Frage.Vote)
-            </td>
-             <td>
-             <a asp-page="Vote"><input type="submit" value="+1" class="btn btn-primary" /></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<form method="post">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Submitter)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.Submitter)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.dumbQuestion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.dumbQuestion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Vote)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model =>model.VoteCounter)
+        </dd>
+    </dl>
+    <dl class="col"></dl>
+    @if (Model.Duplicate)
+    {
+    <div class="text-warning">You allready have voted!</div>
+    }
+    else
+    {
+        <input type="submit" value="+1" class="btn btn-primary" />
+    }
+
+</form>

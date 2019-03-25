@@ -1,4 +1,5 @@
-using System;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,9 +7,8 @@ namespace firstwebapp.Models
 {
     public class Question
     {
-        public int ID { get; set; }
-
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }        
         [StringLength(60, MinimumLength = 3)]
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [Required]
@@ -19,9 +19,19 @@ namespace firstwebapp.Models
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [Required]
         [Display(Name = "Frage")]
-        public string dumbQuestion {get;set;}
+        public string dumbQuestion { get; set; }
 
         [Display(Name = "Facepalms")]
-        public int Vote{get;set;}
+        public virtual IEnumerable<Votes> Vote { get; set; }
+    }
+
+    public class Votes
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public string UserId { get; set; }
+        public virtual IdentityUser User { get; set; }
+        public int QuestionId { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

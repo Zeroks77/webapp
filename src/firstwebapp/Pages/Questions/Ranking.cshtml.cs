@@ -20,12 +20,29 @@ namespace firstwebapp.Pages.Questions
         }
 
         public IList<Question> Question { get;set; }
+        public List<int> VoteCounter = new List<int>();
 
         public async Task OnGetAsync()
         {
-           IQueryable<Question> Upvotes = from s in _context.Questions
+            Question = await _context.Questions                
+                .ToListAsync();
+            IQueryable<Question> Upvotes = from s in _context.Questions
                                     select s;
-            Upvotes = Upvotes.OrderByDescending(a => a.Vote);
+            Upvotes = Upvotes.OrderByDescending(a => a.Vote.Count());
+            foreach (var item in Question)
+            {
+                try
+                {
+                    VoteCounter.Add(item.Vote.Count());
+                }
+                catch (Exception)
+                {
+                    VoteCounter.Add(0);
+
+                }
+
+            }
+
 
             Question = Upvotes.ToList();
         }

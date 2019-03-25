@@ -20,12 +20,27 @@ namespace firstwebapp.Pages.Questions
             _context = context;
         }
 
-        public IList<Question> Question { get;set; }
-           public async Task OnGetAsync()
+        public IList<Question> Question { get; set; }
+        public List<int> VoteCounter = new List<int>();
+        public async Task OnGetAsync()
         {
             Question = await _context.Questions.ToListAsync();
-        }
+            foreach (var item in Question)
+            {
+                try
+                {
+                    VoteCounter.Add(item.Vote.Count());
+                }
+                catch (Exception)
+                {
+                    VoteCounter.Add(0);
 
+                }
+                
+            }
+        }
     }
+
 }
+
 

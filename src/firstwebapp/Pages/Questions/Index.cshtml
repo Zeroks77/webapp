@@ -36,10 +36,10 @@
                 @Html.DisplayFor(modelItem => item.dumbQuestion)
             </td>
             <td>
-                 @Html.DisplayFor(modelItem => item.Vote)
+                 @Html.DisplayFor(model => model.VoteCounter[item.ID -1] )
             </td>
              <td>
-             <a asp-page="Vote"><input type="submit" value="Go Vote" class="btn btn-primary" /></a>
+             <a asp-page="Vote" asp-route-id="@item.ID"> <input type="submit" value="Go Vote" class="btn btn-primary" /></a>
             </td>
         </tr>
 }
