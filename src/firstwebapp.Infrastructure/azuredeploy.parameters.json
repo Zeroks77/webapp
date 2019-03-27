@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appService_firstwebapp20190325043033_name": {
+      "value": "firstwebapp20190325043033"
+    },
+    "appServicePlan_VotingServer_location": {
+      "value": "West Europe"
+    },
+    "appServicePlan_VotingServer_name": {
+      "value": "VotingServer"
+    },
+    "appServicePlan_VotingServer_resourceGroup": {
+      "value": "Voting_App"
+    },
+    "appInsightsComponentName_firstwebapp20190325043033_location": {
+      "value": "West Europe"
+    },
+    "appInsightsComponentName_firstwebapp20190325043033_type": {
+      "value": "web"
+    },
+    "appInsightsComponentName_firstwebapp20190325043033_hockeyAppToken": {
+      "value": ""
+    },
+    "appInsightsComponentName_firstwebapp20190325043033_requestSource": {
+      "value": "WebTools16.0"
+    },
+    "dbserver_votingappdatabase_name": {
+      "value": "votingappdatabase"
+    },
+    "dbserver_votingappdatabase_adminlogin": {
+      "value": null
+    },
+    "dbserver_votingappdatabase_adminpassword": {
+      "value": null
+    },
+    "dbserver_votingappdatabase_location": {
+      "value": "West Europe"
+    },
+    "dbserver_votingappdatabase_VotingDB_name": {
+      "value": "VotingDB"
+    },
+    "dbserver_votingappdatabase_VotingDB_location": {
+      "value": "West Europe"
+    },
+    "appServicePlan_VotingServer_skuName": {
+      "value": "B1"
+    },
+    "appServicePlan_VotingServer_skuTier": {
+      "value": "Basic"
+    },
+    "appServicePlan_VotingServer_skuFamily": {
+      "value": "B"
+    },
+    "appServicePlan_VotingServer_skuSize": {
+      "value": "B1"
+    },
+    "appServicePlan_VotingServer_workerSizeId": {
+      "value": 0
+    }
+  }
+}
