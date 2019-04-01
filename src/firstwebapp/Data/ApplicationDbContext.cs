@@ -4,6 +4,7 @@ using System.Text;
 using firstwebapp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace firstwebapp.Data
 {
@@ -15,8 +16,7 @@ namespace firstwebapp.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
-        .UseLazyLoadingProxies()
-        .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MvcMovieContext-2;Trusted_Connection=True;MultipleActiveResultSets=true");
+        .UseLazyLoadingProxies();
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Votes>()
@@ -29,5 +29,4 @@ namespace firstwebapp.Data
         public DbSet<Votes> Votes { get; set; }
 
     }
-   
 }
