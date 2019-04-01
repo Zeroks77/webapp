@@ -12,7 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "SQLAZURECONNSTR_DefaultConnection": "Development",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
