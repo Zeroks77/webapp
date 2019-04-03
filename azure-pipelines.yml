@@ -1,29 +1,55 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
-trigger:
-- master
-
-pool:
-  vmImage: 'Ubuntu-16.04'
-
+resources:
+  repositories:
+  - repository:  self 
+queue:
+  name: Hosted VS2017
 variables:
-  buildConfiguration: 'Release'
+  versionSuffixForPre: 'pre-$(Build.BuildNumber)'
+  versionSuffixForProd: 'prod-$(Build.BuildNumber)'
+  csprojPath: 'src/**.*csproj'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreInstaller@0
+  inputs:
+    packageType: 'sdk'
+    version: '2.2.103' 
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
+  displayName: 'dotnet restore'
   inputs:
-    command: publish
+    command: 'restore'
+    projects: '$(csprojPath)'
+    restoreDirectory: 'Destination dotNET'
 
-    publishWebProjects: false
 
-    projects: 'src/**.*csproj'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: build
+    projects: '$(csprojPath)'
+
+- task: PowerShell@2
+  displayName: 'install GitVersion'
+  inputs:
+    targetType: 'inline' # Optional. Options: filePath, inline        
+    script: 'dotnet tool install --tool-path ./tool GitVersion.Tool --version 5.0.0-beta2-6' # Required when targetType == Inline
+    workingDirectory: '$(Build.SourcesDirectory)/src/'
+
+- task: PowerShell@2
+  displayName: 'pack with versionnumber pre'
+  condition: and(succeeded(), ne(contains(variables['Build.SourceBranch'], 'refs/heads/rc'), true))
+  inputs:
+    targetType: 'inline' # Optional. Options: filePath, inline        
+    script: './tool/dotnet-gitversion.exe | ConvertFrom-Json | select -ExpandProperty SemVer | %{ dotnet pack /p:VersionPrefix=$_ --include-symbols --include-source -o $(Build.ArtifactStagingDirectory)}' # Required when targetType == Inline
+    workingDirectory: '$(Build.SourcesDirectory)/src/'
+
+- task: PowerShell@2
+  displayName: 'pack with versionnumber prod'
+  condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/rc'))
+  inputs:
+    targetType: 'inline' # Optional. Options: filePath, inline        
+    script: './tool/dotnet-gitversion.exe | ConvertFrom-Json | select -ExpandProperty MajorMinorPatch | %{ dotnet pack /p:VersionPrefix=$_ --include-symbols --include-source -o $(Build.ArtifactStagingDirectory)}' # Required when targetType == Inline
+    workingDirectory: '$(Build.SourcesDirectory)/src/'    
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
