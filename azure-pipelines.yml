@@ -6,13 +6,13 @@ queue:
 variables:
   versionSuffixForPre: 'pre-$(Build.BuildNumber)'
   versionSuffixForProd: 'prod-$(Build.BuildNumber)'
-  csprojPath: 'src/**.*csproj'
+  csprojPath: 'src/firstwebapp/**.*csproj'
 
 steps:
 - task: DotNetCoreInstaller@0
   inputs:
     packageType: 'sdk'
-    version: '2.2.103' 
+    version: '2.2.105' 
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet restore'
