@@ -14,7 +14,6 @@ using firstwebapp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using firstwebapp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace firstwebapp
 {
