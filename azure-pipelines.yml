@@ -6,7 +6,7 @@ queue:
 variables:
   versionSuffixForPre: 'pre-$(Build.BuildNumber)'
   versionSuffixForProd: 'prod-$(Build.BuildNumber)'
-  csprojPath: '/src/firstwebapp/**.*csproj'
+  csprojPath: 'src/firstwebapp/**.*csproj'
 
 steps:
 - task: DotNetCoreInstaller@0
