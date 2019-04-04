@@ -26,6 +26,7 @@ steps:
   displayName: 'dotnet build'
   inputs:
     command: build
+    configuration: 'release'
     projects: '$(csprojPath)'
 
 - task: PowerShell@2
