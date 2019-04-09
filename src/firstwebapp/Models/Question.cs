@@ -16,7 +16,7 @@ namespace firstwebapp.Models
         public string Submitter { get; set; }
 
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]+[?]*$")]
         [Required]
         [Display(Name = "Frage")]
         public string dumbQuestion { get; set; }
