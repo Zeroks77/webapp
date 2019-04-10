@@ -15,13 +15,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Question[0].Submitter)
+                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().Submitter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Question[0].dumbQuestion)
+                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().dumbQuestion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Question[0].Vote)
+                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().VoteCount)
             </th>
             <th></th>
         </tr>
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.dumbQuestion)
             </td>
             <td>
-                 @Html.DisplayFor(model => model.VoteCounter[item.ID -1] )
+                 @Html.DisplayFor(model => item.VoteCount)
             </td>
              <td>
              <a asp-page="Vote" asp-route-id="@item.ID"> <input type="submit" value="Go Vote" class="btn btn-primary" /></a>

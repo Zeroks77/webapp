@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using firstwebapp.Models;
 using firstwebapp.Data;
+using firstwebapp.ViewModel;
 
 namespace firstwebapp.Pages.Questions
 {
@@ -20,24 +21,13 @@ namespace firstwebapp.Pages.Questions
             _context = context;
         }
 
-        public IList<Question> Question { get; set; }
-        public List<int> VoteCounter = new List<int>();
+        public IEnumerable<QuestionViewModel> Question { get; set; }
         public async Task OnGetAsync()
         {
-            Question = await _context.Questions.ToListAsync();
-            foreach (var item in Question)
-            {
-                try
-                {
-                    VoteCounter.Add(item.Vote.Count());
-                }
-                catch (Exception)
-                {
-                    VoteCounter.Add(0);
+            Question = _context.Questions.Include(d => d.Vote).Select(a =>
+                new QuestionViewModel() { VoteCount = a.Vote.Count(), dumbQuestion = a.dumbQuestion, ID = a.ID, Submitter = a.Submitter }
+            ).AsEnumerable();
 
-                }
-                
-            }
         }
     }
 
