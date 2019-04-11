@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using firstwebapp.Models;
 using firstwebapp.Data;
+using firstwebapp.ViewModel;
 
 namespace firstwebapp.Pages.Questions
 {
@@ -18,35 +19,13 @@ namespace firstwebapp.Pages.Questions
         {
             _context = context;
         }
-
-        public IList<Question> Question { get;set; }
-        public List<int> VoteCounter = new List<int>();
+        public IEnumerable<QuestionViewModel> Question { get; set; }
 
         public async Task OnGetAsync()
         {
-            Question = await _context.Questions                
-                .ToListAsync();
-            IQueryable<Question> Upvotes = from s in _context.Questions
-                                    select s;
-            Upvotes = Upvotes.OrderByDescending(a => a.Vote.Count());
-            foreach (var item in Question)
-            {
-                try
-                {
-                    VoteCounter.Add(item.Vote.Count());
-                }
-                catch (Exception)
-                {
-                    VoteCounter.Add(0);
-
-                }
-
-            }
-
-
-            Question = Upvotes.ToList();
+            Question = _context.Questions.Include(d => d.Vote).Select(a =>
+             new QuestionViewModel() { VoteCount = a.Vote.Count(), dumbQuestion = a.dumbQuestion, ID = a.ID, Submitter = a.Submitter }
+         ).OrderByDescending(a => a.VoteCount).AsEnumerable();
         }
-
-
     }
 }
