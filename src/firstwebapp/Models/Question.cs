@@ -14,16 +14,11 @@ namespace firstwebapp.Models
         [Required]
         [Display(Name = "Fragensteller")]
         public string Submitter { get; set; }
-
-
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]+[?]*$")]
+        [RegularExpression(@"^[a-zA-Z\Ä\Ö\Ü]+[a-zA-Zß\d""'\s-]+[?]*$")]
         [Required]
         [Display(Name = "Frage")]
         public string dumbQuestion { get; set; }
-
         [Display(Name = "Facepalms")]
         public virtual IEnumerable<Votes> Vote { get; set; }
     }
-
-
 }
