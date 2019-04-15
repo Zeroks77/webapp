@@ -14,7 +14,7 @@ namespace firstwebapp.Models
         [Required]
         [Display(Name = "Fragensteller")]
         public string Submitter { get; set; }
-        [RegularExpression(@"^[a-zA-Z\Ä\Ö\Ü]+[a-zA-Zß\d""'\s-]+[?]*$")]
+        [RegularExpression(@"^[a-zäöüA-ZÄÖÜ]+[a-zA-Zß\d""'\s-]+[?]*$")]
         [Required]
         [Display(Name = "Frage")]
         public string dumbQuestion { get; set; }

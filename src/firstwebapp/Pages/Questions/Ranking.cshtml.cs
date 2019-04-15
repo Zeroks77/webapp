@@ -25,7 +25,8 @@ namespace firstwebapp.Pages.Questions
         {
             Question = _context.Questions.Include(d => d.Vote).Select(a =>
              new QuestionViewModel() { VoteCount = a.Vote.Count(), dumbQuestion = a.dumbQuestion, ID = a.ID, Submitter = a.Submitter }
-         ).OrderByDescending(a => a.VoteCount).AsEnumerable();
+         ).FromSql("").OrderByDescending(a => a.VoteCount).AsEnumerable();
+            
         }
     }
 }

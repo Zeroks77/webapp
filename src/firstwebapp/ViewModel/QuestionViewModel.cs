@@ -19,7 +19,7 @@ namespace firstwebapp.ViewModel
         public string Submitter { get; set; }
 
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]+[?]*$")]
+        [RegularExpression(@"[a-zäöüA-ZÄÖÜ]+[a-zäüöA-ZÄÜÖß\d""'\s-]+[?]*$")]
         [Required]
         [Display(Name = "Frage")]
         public string dumbQuestion { get; set; }
