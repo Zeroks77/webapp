@@ -8,13 +8,18 @@ namespace firstwebapp.Models
     public class Question
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }        
-        [StringLength(60, MinimumLength = 3)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+        public int ID { get; set; }
+        [StringLength(30, ErrorMessage =
+         "Der erste Buchstabe muss ein Großbuchstabe sein."
+        , MinimumLength = 3)]
+        [RegularExpression(@"^[A-Z]+[a-zäöüA-ZÄÖÜß""'\s-]*$")]
         [Required]
         [Display(Name = "Fragensteller")]
         public string Submitter { get; set; }
-        [RegularExpression(@"^[a-zäöüA-ZÄÖÜ]+[a-zA-Zß\d""'\s-]+[?]*$")]
+        [StringLength(1000, ErrorMessage = 
+            "Der erste Buchstabe muss ein Großbuchstabe sein."
+            ,MinimumLength = 3)]
+        [RegularExpression(@"^[a-zäöüA-ZÄÖÜ]+[a-zäöüA-ZÄÖÜß\d""'\s-]+[?]*$")]
         [Required]
         [Display(Name = "Frage")]
         public string dumbQuestion { get; set; }
