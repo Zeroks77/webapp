@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace firstwebapp.Pages.Questions
 {
-    [Authorize]
+
+    [Authorize(Roles = "User")]
     public class Vote : PageModel
     {
         private readonly ApplicationDbContext _context;

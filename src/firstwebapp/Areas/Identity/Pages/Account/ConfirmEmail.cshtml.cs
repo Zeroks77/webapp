@@ -33,6 +33,7 @@ namespace firstwebapp.Areas.Identity.Pages.Account
             }
 
             var result = await _userManager.ConfirmEmailAsync(user, code);
+               await _userManager.AddToRoleAsync(user,"User");
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using firstwebapp.Models;
 using firstwebapp.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace firstwebapp.Pages.Questions
 {
+
+    [Authorize(Roles = "User")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;

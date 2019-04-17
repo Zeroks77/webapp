@@ -40,11 +40,15 @@ namespace firstwebapp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")
                     )
                 );
+
+
             services.AddDefaultIdentity<IdentityUser>
                 (config =>
             {
@@ -54,6 +58,7 @@ namespace firstwebapp
                 new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
                 config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+
             }).AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

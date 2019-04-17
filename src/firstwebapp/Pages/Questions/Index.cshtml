@@ -39,10 +39,11 @@
                  @Html.DisplayFor(model => item.VoteCount)
             </td>
             <td>
-                    <a asp-page="Vote" asp-route-id="@item.ID"> <input type="submit" value="Go Vote" class="btn btn-primary" /></a>
+                <a asp-page="Vote" asp-route-id="@item.ID"> <input type="submit" value="Go Vote" class="btn btn-primary" /></a>
                 @if (this.User.IsInRole("Admin"))
                 {
                     <a asp-page="Delete" asp-route-id="@item.ID"> <input type="submit" value="Delete" class="btn btn-primary" /></a>
+                    <a asp-page="Edit" asp-route-id="@item.ID"> <input type="submit" value="Edit" class="btn btn-primary" /></a>
                 }
             </td>
         </tr>

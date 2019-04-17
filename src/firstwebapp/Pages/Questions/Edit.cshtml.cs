@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using firstwebapp.Models;
 using firstwebapp.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace firstwebapp.Pages.Questions
 {
+
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;

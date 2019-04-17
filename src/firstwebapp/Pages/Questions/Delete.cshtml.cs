@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using firstwebapp.Models;
 using firstwebapp.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace firstwebapp.Pages.Questions
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
