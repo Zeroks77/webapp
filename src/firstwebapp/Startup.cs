@@ -52,7 +52,7 @@ namespace firstwebapp
             services.AddDefaultIdentity<IdentityUser>
                 (config =>
             {
-                config.SignIn.RequireConfirmedEmail = true;
+                config.SignIn.RequireConfirmedEmail = false;
                 config.User.RequireUniqueEmail = true;
                 config.Tokens.ProviderMap.Add("CustomEmailConfirmation",
                 new TokenProviderDescriptor(
