@@ -14,10 +14,7 @@ namespace firstwebapp.Pages
     {
         public void OnGet()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                IdentityR 
-            }
+           
         }
     }
 }
