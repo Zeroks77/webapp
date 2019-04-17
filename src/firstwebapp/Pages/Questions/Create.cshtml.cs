@@ -18,25 +18,20 @@ namespace firstwebapp.Pages.Questions
         {
             _context = context;
         }
-
         public IActionResult OnGet()
         {
             return Page();
         }
-
         [BindProperty]
         public Question Question { get; set; }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
             _context.Questions.Add(Question);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

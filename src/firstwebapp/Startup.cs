@@ -26,6 +26,7 @@ namespace firstwebapp
         {
             this.Configuration = configuration;
             Env = env;
+
         }
         public IConfiguration Configuration { get; }
         public IHostingEnvironment Env { get; }
@@ -44,15 +45,21 @@ namespace firstwebapp
                     Configuration.GetConnectionString("DefaultConnection")
                     )
                 );
-
-            services.AddDefaultIdentity<IdentityUser>(config =>
+            services.AddDefaultIdentity<IdentityUser>
+                (config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
                 config.User.RequireUniqueEmail = true;
+                config.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+                new TokenProviderDescriptor(
+                typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
+                config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
             }).AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddHttpClient();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -62,6 +69,8 @@ namespace firstwebapp
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
 
+            services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -69,8 +78,8 @@ namespace firstwebapp
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
         }
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
