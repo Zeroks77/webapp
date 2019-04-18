@@ -20,9 +20,6 @@ namespace firstwebapp.Pages
         }
         public async Task OnGetAsync()
         {
-            var user = await _userManager.FindByIdAsync("74b6df55-6f27-4614-bcd5-444868a4e582");
-            await _userManager.AddToRoleAsync(user, "User");
-            await _userManager.AddToRoleAsync(user, "Admin");
         }
     }
 }
