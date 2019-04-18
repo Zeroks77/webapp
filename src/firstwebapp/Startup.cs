@@ -75,13 +75,13 @@ namespace firstwebapp
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                 context.Database.Migrate();
-                await CreateRoles(serviceScope.ServiceProvider);
+                //await CreateRoles(serviceScope.ServiceProvider);
             }
 
             if (env.IsDevelopment())
