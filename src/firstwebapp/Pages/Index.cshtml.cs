@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace firstwebapp.Pages
 {
@@ -14,7 +15,6 @@ namespace firstwebapp.Pages
     {
         public void OnGet()
         {
-           
         }
     }
 }
