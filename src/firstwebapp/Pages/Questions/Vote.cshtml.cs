@@ -30,7 +30,7 @@ namespace firstwebapp.Pages.Questions
 
         public Question Question { get; set; }
         public int? ID { get; set; }
-        public bool Duplicate = false;
+        public bool UpvoteExist = false;
         public int VoteCounter = 0;
         public UserManager<IdentityUser> UserManager { get; }
 
@@ -56,6 +56,10 @@ namespace firstwebapp.Pages.Questions
             {
                 return NotFound();
             }
+            if (await _context.Votes.FindAsync(id) == null)
+            {
+                UpvoteExist = true;
+            } 
             return Page();
         }        
         public async Task<IActionResult> OnPostAsync(int? id)
@@ -92,7 +96,7 @@ namespace firstwebapp.Pages.Questions
                 if(ex.InnerException.Message.Contains("duplicate key"))
                 {
                     Question = _context.Questions.FirstOrDefault(d => d.ID == Id);
-                    Duplicate = true;
+                    _context.Votes.Remove(_context.Votes.FirstOrDefault(d=> d.ID == Id));
                     return Page();
                 }
                 else

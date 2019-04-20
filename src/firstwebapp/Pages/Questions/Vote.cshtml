@@ -29,13 +29,13 @@
         </dd>
     </dl>
     <dl class="col"></dl>
-    @if (Model.Duplicate)
+    @if (Model.UpvoteExist)
     {
-    <div class="text-warning">You allready have voted!</div>
+       <input type="submit" value="+1" class="btn btn-primary" />
     }
     else
     {
-        <input type="submit" value="+1" class="btn btn-primary" />
+        <input type="submit" value="-1" class="btn btn-primary" />
     }
 
 </form>
