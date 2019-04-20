@@ -58,13 +58,13 @@ namespace firstwebapp.Pages.Questions
             }
 
             var user = await UserManager.GetUserAsync(HttpContext.User);
-            UpvoteExist = upvoteExist(user);
+            UpvoteExist = upvoteExist(user, id);
             return Page();
         }        
-        private bool upvoteExist(IdentityUser user)
+        private bool upvoteExist(IdentityUser user, int? id)
         {
             var UpvoteExist = false;
-            if (_context.Votes.Any(d => d.UserId == user.Id))
+            if (_context.Votes.Any(d => (d.User.Id == user.Id && d.QuestionId == id)))
             {
                 UpvoteExist = true;
             }
@@ -83,10 +83,10 @@ namespace firstwebapp.Pages.Questions
                 Id = id.Value;
             }
             var user = await UserManager.GetUserAsync(HttpContext.User);
-            if (upvoteExist(user))
+            if (upvoteExist(user, id))
             {
 
-                _context.Votes.Remove(_context.Votes.FirstOrDefault(d => d.UserId == user.Id));
+                _context.Votes.Remove(_context.Votes.FirstOrDefault(d => d.UserId == user.Id && d.QuestionId == id));
                 UpvoteExist = false;
             }
             else
