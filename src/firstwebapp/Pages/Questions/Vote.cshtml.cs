@@ -50,18 +50,26 @@ namespace firstwebapp.Pages.Questions
             catch (Exception)
             {
                 VoteCounter = 0;
-            } 
+            }
 
             if (Question == null)
             {
                 return NotFound();
             }
-            if (await _context.Votes.FindAsync(id) == null)
-            {
-                UpvoteExist = true;
-            } 
+
+            var user = await UserManager.GetUserAsync(HttpContext.User);
+            UpvoteExist = upvoteExist(user);
             return Page();
         }        
+        private bool upvoteExist(IdentityUser user)
+        {
+            var UpvoteExist = false;
+            if (_context.Votes.Any(d => d.UserId == user.Id))
+            {
+                UpvoteExist = true;
+            }
+            return UpvoteExist;
+        }
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             ID = id;
@@ -75,7 +83,18 @@ namespace firstwebapp.Pages.Questions
                 Id = id.Value;
             }
             var user = await UserManager.GetUserAsync(HttpContext.User);
-            _context.Votes.Add(new Votes() { QuestionId = Id, UserId = user.Id });
+            if (upvoteExist(user))
+            {
+
+                _context.Votes.Remove(_context.Votes.FirstOrDefault(d => d.UserId == user.Id));
+                UpvoteExist = false;
+            }
+            else
+            {
+                _context.Votes.Add(new Votes() { QuestionId = Id, UserId = user.Id });
+                UpvoteExist = true;
+            }
+           
             try
             {
                 await _context.SaveChangesAsync();
@@ -96,7 +115,14 @@ namespace firstwebapp.Pages.Questions
                 if(ex.InnerException.Message.Contains("duplicate key"))
                 {
                     Question = _context.Questions.FirstOrDefault(d => d.ID == Id);
-                    _context.Votes.Remove(_context.Votes.FirstOrDefault(d=> d.ID == Id));
+                    try
+                    {
+                        VoteCounter = Question.Vote.Count();
+                    }
+                    catch (Exception)
+                    {
+                        VoteCounter = 0;
+                    }
                     return Page();
                 }
                 else

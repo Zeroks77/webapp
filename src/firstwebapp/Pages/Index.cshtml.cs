@@ -13,11 +13,6 @@ namespace firstwebapp.Pages
     [AllowAnonymous]
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        public IndexModel(UserManager<IdentityUser> userManager)
-        {
-            _userManager = userManager;
-        }
         public async Task OnGetAsync()
         {
         }
