@@ -20,13 +20,13 @@ namespace firstwebapp.Pages.Questions
         {
             _context = context;
         }
-        public IEnumerable<QuestionViewModel> Question { get; set; }
+        public IEnumerable<QuestionViewModel> Questions { get; set; }
         public async Task OnGetAsync()
         {
-            Question = _context.Questions.Include(d => d.Vote).Select(a =>
+            Questions = _context.Questions.Include(d => d.Vote).Select(a =>
                 new QuestionViewModel() { VoteCount = a.Vote.Count(), dumbQuestion = a.dumbQuestion, ID = a.ID, Submitter = a.Submitter }
             ).AsEnumerable();
-            Question.Reverse();
+           Questions = Questions.Reverse();
         }
     }
 }

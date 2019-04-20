@@ -15,19 +15,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().Submitter)
+                @Html.DisplayNameFor(model => model.Questions.FirstOrDefault().Submitter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().dumbQuestion)
+                @Html.DisplayNameFor(model => model.Questions.FirstOrDefault().dumbQuestion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Question.FirstOrDefault().VoteCount)
+                @Html.DisplayNameFor(model => model.Questions.FirstOrDefault().VoteCount)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Question) {
+@foreach (var item in Model.Questions) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Submitter)
