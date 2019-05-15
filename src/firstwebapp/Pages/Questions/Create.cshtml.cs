@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using firstwebapp.Models;
 using firstwebapp.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Identity;
 
 namespace firstwebapp.Pages.Questions
 {
@@ -33,6 +35,7 @@ namespace firstwebapp.Pages.Questions
             {
                 return Page();
             }
+            Question.EingereichtVonID = HttpContext.User.Identity.ToString();
             _context.Questions.Add(Question);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");

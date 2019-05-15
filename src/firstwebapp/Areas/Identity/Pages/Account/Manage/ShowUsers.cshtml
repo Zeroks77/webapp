@@ -1,0 +1,52 @@
+@page
+@model firstwebapp.Areas.Identity.Pages.Account.Manage.ShowUserModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle Users</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().EMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().FragenEingereicht)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.FirstOrDefault().VotesGegeben)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.EMail)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FragenEingereicht)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.VotesGegeben)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -24,5 +24,7 @@ namespace firstwebapp.Models
         public string dumbQuestion { get; set; }
         [Display(Name = "Facepalms")]
         public virtual IEnumerable<Votes> Vote { get; set; }
+
+        public string EingereichtVonID { get; set; }
     }
 }
