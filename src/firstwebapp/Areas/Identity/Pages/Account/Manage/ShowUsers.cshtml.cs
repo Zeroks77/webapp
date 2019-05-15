@@ -25,7 +25,8 @@ namespace firstwebapp.Areas.Identity.Pages.Account.Manage
         public async Task OnGetAsync()
         {
             Users = _context.Users.Select(a =>
-             new ShowUserViewModel() { ID = a.Id, EMail = a.Email, UserName = a.UserName });
+             new ShowUserViewModel() { ID = a.Id, EMail = a.Email, UserName = a.UserName, FragenEingereicht = _context.Questions.Where(b => b.EingereichtVonID == a.Id).Count(), VotesGegeben = _context.Votes.Where(b => b.UserId == a.Id).Count() }) ;
+            
         }
     }
 }
