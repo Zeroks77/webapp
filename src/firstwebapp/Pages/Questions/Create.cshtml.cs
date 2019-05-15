@@ -18,10 +18,12 @@ namespace firstwebapp.Pages.Questions
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context, UserManager<IdentityUser> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
         }
         public IActionResult OnGet()
         {
@@ -35,7 +37,8 @@ namespace firstwebapp.Pages.Questions
             {
                 return Page();
             }
-            Question.EingereichtVonID = HttpContext.User.Identity.ToString();
+            var _user = await _userManager.FindByNameAsync(User.Identity.Name);
+            Question.EingereichtVonID = _user.Id;
             _context.Questions.Add(Question);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
