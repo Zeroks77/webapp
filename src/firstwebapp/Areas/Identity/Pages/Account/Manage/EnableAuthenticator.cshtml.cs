@@ -148,7 +148,7 @@ namespace firstwebapp.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("firstwebapp"),
+                _urlEncoder.Encode("Dumme Fragen"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }
